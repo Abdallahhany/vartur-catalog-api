@@ -14,7 +14,7 @@ export const updateCategorySchema = z.object({
 
 
 export const categoryIdParamSchema = z.object({
-  id: z.string().regex(/^\d+$/, 'ID must be a number'),
+  id: z.number().min(1, 'Category ID must be a positive number'),
 })
 
 

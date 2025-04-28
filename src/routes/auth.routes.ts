@@ -61,7 +61,7 @@ export default async function authRoutes(fastify: FastifyInstance) {
           201: {
             type: "object",
             properties: {
-              message: { type: "string" },
+              token: { type: "string" },
             },
           },
           400: {

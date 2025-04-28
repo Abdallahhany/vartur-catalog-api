@@ -36,7 +36,7 @@ export async function getCategoryByIdHandler(request: FastifyRequest, reply: Fas
     throw new AppError('Invalid request parameters', 400);
   }
 
-  const category = await getCategoryByIdService(request.server, parseInt(parsed.data.id))
+  const category = await getCategoryByIdService(request.server, parsed.data.id)
 
   if (!category) {
     throw new AppError('Category not found', 404);
@@ -47,15 +47,18 @@ export async function getCategoryByIdHandler(request: FastifyRequest, reply: Fas
 
 export async function updateCategoryHandler(request: FastifyRequest, reply: FastifyReply) {
   const idParsed = categoryIdParamSchema.safeParse(request.params)
-  const bodyParsed = updateCategorySchema.safeParse(request.body)
+  const bodyParsed = updateCategorySchema.safeParse(request.body);
 
+  console.log(idParsed, bodyParsed);
+  
   if (!idParsed.success || !bodyParsed.success) {
+
     throw new AppError('Invalid request parameters or body', 400);
   }
 
   const updatedCategory = await updateCategoryService(
     request.server,
-    parseInt(idParsed.data.id),
+    idParsed.data.id,
     bodyParsed.data
   )
   
@@ -69,7 +72,7 @@ export async function deleteCategoryHandler(request: FastifyRequest, reply: Fast
     throw new AppError("Invalid request parameters", 400);
   }
 
-  const deleted = await deleteCategoryService(request.server, parseInt(parsed.data.id))
+  const deleted = await deleteCategoryService(request.server, parsed.data.id)
 
   if (!deleted) {
     throw new AppError("Category not found", 404);

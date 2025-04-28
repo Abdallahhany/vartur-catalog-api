@@ -36,7 +36,7 @@ export async function getProductByIdHandler(request: FastifyRequest, reply: Fast
     throw new AppError('Invalid request parameters', 400);
   }
 
-  const product = await getProductByIdService(request.server, parseInt(parsed.data.id))
+  const product = await getProductByIdService(request.server, parsed.data.id)
 
   if (!product) {
     return reply.status(404).send({ error: 'Product not found' });
@@ -55,7 +55,7 @@ export async function updateProductHandler(request: FastifyRequest, reply: Fasti
 
   const product = await updateProductService(
     request.server,
-    parseInt(idParsed.data.id),
+    idParsed.data.id,
     bodyParsed.data
   )
 
@@ -73,7 +73,7 @@ export async function deleteProductHandler(request: FastifyRequest, reply: Fasti
     throw new AppError('Invalid request parameters', 400)
   }
 
-  const deleted = await deleteProductService(request.server, parseInt(parsed.data.id))
+  const deleted = await deleteProductService(request.server, parsed.data.id)
 
   if (!deleted) {
     throw new AppError('Product not found', 404)
